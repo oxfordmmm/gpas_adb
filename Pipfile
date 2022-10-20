@@ -8,6 +8,8 @@ sqlalchemy = "*"
 oracledb = "*"
 alembic = "*"
 sqlalchemy-jdbcapi = "*"
+pytest = "*"
+alembic-verify = "*"
 
 [dev-packages]
 

@@ -1,28 +1,47 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Integer, text, JSON, Unicode, ForeignKey, Identity
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, Identity, Date, Enum
 from sqlalchemy.orm import relationship
+import enum
 
 Base = declarative_base()
 metadata = Base.metadata
 
-class Site(Base):
+SAMPLE_FIELDS = "run_accession,instrument_platform,read_count,fastq_md5,fastq_ftp,collection_date,host,country"
+SAMPLE_RESULT = "read_run"
+SAMPLE_LIMIT = 0
+SAMPLE_FORMAT = "tsv"
+SAMPLE_DOWNLOAD = "true"
 
-    __tablename__ = 'SITES'
+class Sample_Status(enum.Enum):
+    available = 1
+    downloaded = 2
+    error = 3
 
-    id = Column(Integer, Identity(on_null=True), primary_key = True)
-    name = Column(String(255), nullable = False)
-    code = Column(String(255), nullable = False)
-    URL = Column(String(1000), nullable = False)
+class Project(Base):
 
-class Site_URL_field(Base):
+    __tablename__ = 'projects'
+ 
+    accession = Column(String(20), nullable = False, primary_key = True)
+    name = Column(String(255))
+
+class Sample(Base):
     
-    __tablename__ = "SITE_URL_FIELDS"
+    __tablename__ = 'samples'
 
-    id = Column(Integer, Identity(on_null=True), primary_key = True)
-    site_id = Column(Integer, ForeignKey('SITES.id'))
-    Key = Column(String(20), nullable = False)
-    value = Column(String(20), nullable = False)
-    site = relationship("SITES", back_populates = "SITE_URL_FIELDS")
+    accession = Column(String(20), nullable = False, primary_key = True)
+    project_acession = Column(String(20), ForeignKey('projects.accession'))
+    instrument_platform = Column(String(30), nullable = False)
+    read_count = Column(Integer)
+    fastq_md5 = Column(String(255))
+    fastq_ftp = Column(String(255))
+    collection_date = Column(Date)
+    host = Column(String(255))
+    country = Column(String(30))
+    json_metadata = Column(Text)
+    status = Column(Enum(Sample_Status), server_default="available")
+    error_text = Column(Text)
+    project = relationship('projects', back_populates = "samples")
 
-Site.site_URL_fields = relationship("SITE_URL_FIELDS", order_by = Site_URL_field.id, back_populates = "SITES")
+Project.samples = relationship("samples", order_by = Sample.accession, back_populates = "projects")
+
 
