@@ -13,6 +13,7 @@ sqlalchemy-views = "*"
 ipython = "*"
 pylint = "*"
 black = "*"
+python-decouple = "*"
 
 [dev-packages]
 
