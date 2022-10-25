@@ -14,6 +14,7 @@ ipython = "*"
 pylint = "*"
 black = "*"
 python-decouple = "*"
+pytest-alembic = "*"
 
 [dev-packages]
 

@@ -3,3 +3,4 @@ ipython==8.5.0
 pylint==2.15.5
 black==22.10.0
 pytest==7.2.0
+pytest_alembic==0.8.4
