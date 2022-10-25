@@ -1,3 +1,5 @@
+[![GPAS Autonomous Database Models](https://github.com/oxfordmmm/gpas_adb/actions/workflows/db_tests.yml/badge.svg)](https://github.com/oxfordmmm/gpas_adb/actions/workflows/db_tests.yml)
+
 # gpas_adb
 GPAS Autonomous Database
 
