@@ -18,7 +18,7 @@ jobs:
           APP_USER: MY_USER
           APP_USER_PASSWORD: change_this
         ports:
-          -1521:1521
+          - 1521:1521
         options: >-
           --health-cmd healthcheck.sh
           --health-interval 10s
