@@ -1,24 +1,25 @@
-import os
+# import os
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+# from sqlalchemy import engine_from_config
+# from sqlalchemy import pool
 
 from alembic import context
 
 from model import Base
 from main import engine
+from main import test_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-# config = context.config
+config = context.config
 
 # section = config.config_ini_section
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-# if config.config_file_name is not None:
-#     fileConfig(config.config_file_name)
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -57,6 +58,17 @@ target_metadata = Base.metadata
 #     with context.begin_transaction():
 #         context.run_migrations()
 
+# def run_migrations_offline() -> None:
+#     version_file = os.path.join(os.path.dirname(config.config_file_name), "version.txt")
+#     if os.path.exists(version_file):
+#         current_version = open(version_file).read()
+#     else:
+#         current_version = None
+#     context.configure(dialect_name=engine.name, starting_rev=current_version)
+#     context.run_migrations()
+#     end_version = context.get_revision_argument()
+#     if end_version and end_version != current_version:
+#         open(version_file, 'w').write(end_version)
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
@@ -66,9 +78,18 @@ def run_migrations_online() -> None:
 
     """
 
-    with engine.connect() as connection:
+    ee = context.config.attributes.get("connection", None)
+    
+    if ee is None:
+        test_db = context.get_x_argument(as_dictionary=True).get('testdb')
+        if test_db:
+            ee = test_engine
+        else:
+            ee = engine
+
+    with ee.connect() as conn:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=conn, target_metadata=target_metadata
         )
 
         with context.begin_transaction():

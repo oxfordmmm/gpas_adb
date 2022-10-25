@@ -9,7 +9,10 @@ oracledb = "*"
 alembic = "*"
 sqlalchemy-jdbcapi = "*"
 pytest = "*"
-alembic-verify = "*"
+sqlalchemy-views = "*"
+ipython = "*"
+pylint = "*"
+black = "*"
 
 [dev-packages]
 

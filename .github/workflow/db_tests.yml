@@ -1,0 +1,45 @@
+name: GPAS Autonomous Database Models
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+
+    services:
+      oracle:
+        image: gvenzl/oracle-xe:latest-faststart
+        env:
+          ORACLE_RANDOM_PASSWORD: true
+          APP_USER: MY_USER
+          APP_USER_PASSWORD: change_this
+        ports:
+          -1521:1521
+        options: >-
+          --health-cmd healthcheck.sh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          make install_dev
+      - name: Lint with Pylint
+        run: |
+          make lint
+      - name: Test with pytest
+        run: |
+          make test
+      - name: Format code with Black
+        run: |
+          make format

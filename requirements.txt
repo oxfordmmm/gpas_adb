@@ -1,0 +1,6 @@
+sqlalchemy==1.4.42
+oracledb==1.1.1
+alembic==1.8.1
+sqlalchemy-jdbcapi==1.2.2
+sqlalchemy-views==0.3.1
+
