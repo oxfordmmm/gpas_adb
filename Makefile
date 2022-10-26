@@ -11,7 +11,7 @@ test:
 	python -m pytest -vv
 
 format:
-	find . -not \( -path ./.venv -prune \) -type f -name "*.py" -exec black {} \;
+	black --extend-exclude .venv --extend-exclude alembic .
 
 lint:
-	find . -not \( -path ./.venv -prune \) -type f -name "*.py" -exec pylint --disable=R,C {} \;
+	pylint --recursive=y --disable=R,C --ignore .venv,alembic .
