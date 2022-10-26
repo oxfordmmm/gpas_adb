@@ -11,7 +11,7 @@ test:
 	python -m pytest -vv
 
 format:
-	black *.py
+	find . -not \( -path ./.venv -prune \) -type f -name "*.py" -exec black {} \;
 
 lint:
-	pylint --disable=R,C main.py model.py
+	find . -not \( -path ./.venv -prune \) -type f -name "*.py" -exec pylint --disable=R,C {} \;

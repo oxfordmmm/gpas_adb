@@ -1,3 +1,7 @@
+"""
+The models that represent the database objects
+"""
+import enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Column,
@@ -13,7 +17,6 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import text
 from sqlalchemy_views import CreateView
-import enum
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -25,13 +28,29 @@ SAMPLE_FORMAT = "tsv"
 SAMPLE_DOWNLOAD = "true"
 
 
-class Sample_Status(enum.Enum):
-    available = 1
-    downloaded = 2
-    error = 3
+class SampleStatus(enum.Enum):
+    """
+    Enum of the status for the samples.
+
+    UNPROCESSED - The files have not been downloaded yet and the metadata
+    has not been checked
+
+    DOWNLOADED - The files have been downloaded and the metadata has been
+    checked
+
+    ERROR - Any error occured either during the download of the data or the
+    checking of the metadata
+    """
+
+    UNPROCESSED = 1
+    DOWNLOADED = 2
+    ERROR = 3
 
 
 class Project(Base):
+    """
+    Holds the details of the projects from which we wish to download samples
+    """
 
     __tablename__ = "projects"
 
@@ -40,6 +59,10 @@ class Project(Base):
 
 
 class Sample(Base):
+    """
+    Holds the details of the samples, metadata from the ENA and the JSON
+    to pass to APEX
+    """
 
     __tablename__ = "samples"
 
@@ -53,7 +76,7 @@ class Sample(Base):
     host = Column(String(255))
     country = Column(String(30))
     json_metadata = Column(Text)
-    status = Column(Enum(Sample_Status), server_default="available")
+    status = Column(Enum(SampleStatus), server_default="UNPROCESSED")
     error_text = Column(Text)
     project = relationship("projects", back_populates="samples")
 
@@ -64,11 +87,12 @@ Project.samples = relationship(
 
 sample_view = Table("sample_view", MetaData())
 sample_view_sql = text(
-    """select accession 
-                       from samples 
-                       where status = 'available'
-                       order by collection_date desc
-                       fetch first 10 rows only
-                       """
+    """
+    select accession
+    from samples
+    where status = 'UNPROCESSED'
+    order by collection_date desc
+    fetch first 10 rows only
+    """
 )
 CreateView(sample_view, sample_view_sql)
