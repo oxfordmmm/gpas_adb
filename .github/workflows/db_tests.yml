@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           make install_dev
-      - name: Lint with Pylint
+      - name: Lint with flake8
         run: |
           make lint
       - name: Test with pytest

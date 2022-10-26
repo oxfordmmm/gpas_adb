@@ -14,8 +14,5 @@ format:
 	black --extend-exclude .venv --extend-exclude alembic .
 
 lint:
-	pylint --exit-zero --disable=R,C main.py model.py tests/*.py
-
-style_check:
 	flake8 --exit-zero main.py model.py tests/*.py
 	
