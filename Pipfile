@@ -11,10 +11,10 @@ sqlalchemy-jdbcapi = "*"
 pytest = "*"
 sqlalchemy-views = "*"
 ipython = "*"
-pylint = "*"
 black = "*"
 python-decouple = "*"
 pytest-alembic = "*"
+flake8 = "*"
 
 [dev-packages]
 
