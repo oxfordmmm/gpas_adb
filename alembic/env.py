@@ -6,9 +6,9 @@ from logging.config import fileConfig
 
 from alembic import context
 
-from model import Base
-from main import engine
-from main import test_engine
+from gpas_adb.model import Base
+from gpas_adb.main import engine
+from gpas_adb.main import test_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
