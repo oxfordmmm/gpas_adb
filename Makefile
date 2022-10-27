@@ -14,5 +14,5 @@ format:
 	black --extend-exclude .venv --extend-exclude alembic .
 
 lint:
-	flake8 --exit-zero main.py model.py tests/*.py
+	flake8 main.py model.py tests/*.py
 	

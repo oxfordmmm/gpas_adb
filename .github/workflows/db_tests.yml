@@ -1,6 +1,6 @@
 name: GPAS Autonomous Database Models
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -34,12 +34,9 @@ jobs:
       - name: Install dependencies
         run: |
           make install_dev
-      - name: Lint with flake8
-        run: |
-          make lint
       - name: Test with pytest
         run: |
           make test
-      - name: Format code with Black
+      - name: Lint with flake8
         run: |
-          make format
+          make lint
