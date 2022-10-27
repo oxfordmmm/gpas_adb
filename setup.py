@@ -8,7 +8,14 @@ setup(
     license='MIT',
     packages=['gpas_adb'],
     install_requires=[
-
+        'sqlalchemy',
+        'oracledb',
+        'alembic',
+        'sqlalchemy-jdbcapi',
+        'sqlalchemy-views',
+        'python-decouple',
+        'pytest',
+        'pytest_alembic',
     ],
     zip_safe=False
 )
