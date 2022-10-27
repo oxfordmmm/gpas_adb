@@ -1,7 +1,6 @@
 [![GPAS Autonomous Database Models](https://github.com/oxfordmmm/gpas_adb/actions/workflows/db_tests.yml/badge.svg)](https://github.com/oxfordmmm/gpas_adb/actions/workflows/db_tests.yml)
 
-# gpas_adb
-GPAS Autonomous Database
+# GPAS Autonomous Database
 
 ## Setup Dev machine
 
@@ -56,6 +55,8 @@ version.
 ```
 alembic -x testdb=true upgrade head
 ```
+
+The `Makefile` includes the docker setup commands for both x86_64 and M1
 
 ## Running the tests
 
@@ -114,7 +115,15 @@ Calls the `black` command to format the code to PEP8 standards. Ignores the
 Calls the `pylint` to check the syntax of the Python code. Ignores the `.venv`
 and `alembic` directories
 
-### Generating migrations
+### setup_docker
+
+Runs the Oxford XE container in docker
+
+### setup_docker_mac_m1
+
+Uses Colima to run x86_64 containers and runs the Oxford XE container in docker
+
+## Generating migrations
 
 Run the following command to generate the migration file.
 
