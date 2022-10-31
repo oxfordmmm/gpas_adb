@@ -10,6 +10,14 @@ jobs:
       matrix:
         python-version: ["3.8"]
 
+    env:
+      TEST_DB_USER: MY_USER
+      TEST_DB_PASS: change_this
+      TEST_DB_HOST: 127.0.0.1
+      TEST_DB_PORT: 1521
+      TEST_SERVICE_NAME: XEPDB1
+      TEST_DB_PROTOCOL: tcps
+
     services:
       oracle:
         image: gvenzl/oracle-xe:latest-faststart

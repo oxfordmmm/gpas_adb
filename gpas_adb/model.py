@@ -21,8 +21,10 @@ from sqlalchemy_views import CreateView
 Base = declarative_base()
 metadata = Base.metadata
 
-SAMPLE_FIELDS = ("run_accession,instrument_platform,read_count,fastq_md5,"
-                 "fastq_ftp,collection_date,host,country")
+SAMPLE_FIELDS = (
+    "run_accession,instrument_platform,read_count,fastq_md5,"
+    "fastq_ftp,collection_date,host,country"
+)
 SAMPLE_RESULT = "read_run"
 SAMPLE_LIMIT = 0
 SAMPLE_FORMAT = "tsv"

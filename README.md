@@ -123,6 +123,14 @@ Runs the Oxford XE container in docker
 
 Uses Colima to run x86_64 containers and runs the Oxford XE container in docker
 
+### teardown_setup
+
+Stops the docker container running Oracle XE
+
+### teardown_setup_mac_m1
+
+Stops the docker container running Oracle XE and stops Colima
+
 ## Generating migrations
 
 Run the following command to generate the migration file.
