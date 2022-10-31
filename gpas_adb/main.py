@@ -19,10 +19,17 @@ sys.modules["cx_Oracle"] = oracledb
 DB_USER = config("DB_USER", default="user")
 DB_PASS = config("DB_PASS", default="pass")
 DB_HOST = config("DB_HOST", default="localhost")
-DB_PORT = config("DB_PORT", default="1521")
+DB_PORT = config("DB_PORT", default=1521)
 DB_PROTOCOL = config("DB_PROTOCOL", default="tcps")
 SERVICE_NAME = config("SERVICE_NAME", default="XEPDB1")
 SSL_SERVER_CERT_DN = config("SSL_SERVER_CERT_DN", default="server_cert")
+TEST_DB_USER = config("TEST_DB_USER", default="MY_USER")
+TEST_DB_PASS = config("TEST_DB_PASS", default="change_this")
+TEST_DB_HOST = config("TEST_DB_HOST", default="127.0.0.1")
+TEST_DB_PORT = config("TEST_DB_PORT", default=1521)
+TEST_SERVICE_NAME = config("TEST_SERVICE_NAME", default="XEPDB1")
+TEST_DB_PROTOCOL = config("TEST_DB_PROTOCOL", default="tcps")
+
 
 engine = create_engine(
     f"oracle://{DB_USER}:{DB_PASS}@",
@@ -38,9 +45,12 @@ engine = create_engine(
 )
 
 test_engine = create_engine(
-    "oracle://MY_USER:change_this@127.0.0.1:1521/?service_name=XEPDB1",
+    (
+        f"oracle://{TEST_DB_USER}:{TEST_DB_PASS}@{TEST_DB_HOST}"
+        f":{TEST_DB_PORT}/?service_name={TEST_SERVICE_NAME}"
+    ),
     connect_args={
-        "protocol": "tcps",
+        "protocol": TEST_DB_PROTOCOL,
         "retry_count": 20,
         "retry_delay": 3,
     },
