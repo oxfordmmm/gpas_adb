@@ -59,6 +59,7 @@ class Project(Base):
 
     accession = Column(String(20), nullable=False, primary_key=True)
     name = Column(String(255))
+    samples = relationship("Sample", backref="project")
 
 
 class Sample(Base):
@@ -81,12 +82,7 @@ class Sample(Base):
     json_metadata = Column(Text)
     status = Column(Enum(SampleStatus), server_default="UNPROCESSED")
     error_text = Column(Text)
-    project = relationship("projects", back_populates="samples")
 
-
-Project.samples = relationship(
-    "samples", order_by=Sample.accession, back_populates="projects"
-)
 
 sample_view = Table("sample_view", MetaData())
 sample_view_sql = text(
