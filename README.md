@@ -139,6 +139,12 @@ Run the following command to generate the migration file.
 alembic revision --autogenerate -m "<description of change>"
 ```
 
+If you are using the test database to develop against, and you probably should, then use the following command to generate migrations for any changes that you make.
+
+```
+alembic -x testdb=true revision --autogenerate -m "<description of change>"
+```
+
 Replace `<description of change>` with something descriptive.
 
 **IMPORTANT** Always manually check the generated migrations file. Not all
@@ -153,7 +159,7 @@ To apply the migrations to the test database, run the following
 alembic -x testdb=true upgrade head
 ```
 
-And to run the migrations against the Autonomous Database, run the following
+And to run the migrations against the Live Autonomous Database, run the following
 
 ```
 alembic upgrade head
