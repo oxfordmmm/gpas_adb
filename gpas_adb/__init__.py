@@ -6,5 +6,6 @@ from gpas_adb.main import (
 from gpas_adb.model import (
         Project,
         Sample,
+        SampleStatus,
         sample_view
 )  # noqa: F401
