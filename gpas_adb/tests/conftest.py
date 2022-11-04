@@ -1,10 +1,9 @@
 import sys
 import pytest
 import oracledb
-from gpas_adb import test_engine 
+from gpas_adb import test_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.engine import Connection, Transaction
-import pytest
 
 oracledb.version = "19.0.0"
 sys.modules["cx_Oracle"] = oracledb
@@ -13,6 +12,7 @@ sys.modules["cx_Oracle"] = oracledb
 @pytest.fixture
 def alembic_engine():
     return test_engine
+
 
 @pytest.fixture()
 def dbsession(alembic_engine):
@@ -25,4 +25,3 @@ def dbsession(alembic_engine):
     session.close()
     trans.rollback()
     con.close()
-
