@@ -1,12 +1,13 @@
 from logging.config import fileConfig
 from alembic import context
+from alembic.config import Config
 from gpas_adb.model import Base
-from gpas_adb.main import engine
+from gpas_adb.main import live_engine
 from gpas_adb.main import test_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-config = context.config
+config: Config = context.config
 
 
 # Interpret the config file for Python logging.
@@ -28,6 +29,13 @@ def run_migrations_online() -> None:
 
     """
 
+    def process_revision_directives(context, revision, directives):
+        if config.cmd_opts.autogenerate:
+            script = directives[0]
+            if script.upgrade_ops.is_empty():
+                directives[:] = []
+                print('No changes in schema detected.')
+
     ee = context.config.attributes.get("connection", None)
     
     if ee is None:
@@ -35,11 +43,13 @@ def run_migrations_online() -> None:
         if test_db:
             ee = test_engine
         else:
-            ee = engine
+            ee = live_engine
 
     with ee.connect() as conn:
         context.configure(
-            connection=conn, target_metadata=target_metadata
+            connection=conn, 
+            target_metadata=target_metadata,
+            process_revision_directives=process_revision_directives
         )
 
         with context.begin_transaction():
