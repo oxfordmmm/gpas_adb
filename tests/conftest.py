@@ -1,7 +1,7 @@
 import sys
 import pytest
 import oracledb
-from gpas_adb import test_engine
+from gpas_adb.main import test_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.engine import Connection, Transaction
 

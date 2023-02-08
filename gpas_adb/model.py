@@ -61,6 +61,10 @@ class Project(Base):
     name = Column(String(255))
     samples = relationship("Sample", backref="project")
 
+    def __init__(self, accession: str, name: str = None) -> None:
+        self.accession = accession
+        self.name = name
+
 
 class Sample(Base):
     """
@@ -82,6 +86,34 @@ class Sample(Base):
     json_metadata = Column(Text)
     status = Column(Enum(SampleStatus), server_default="UNPROCESSED")
     error_text = Column(Text)
+
+    def __init__(
+        self,
+        accession: str,
+        project: Project,
+        instrument_platform: str,
+        read_count: int,
+        fastq_md5: str,
+        fastq_ftp: str,
+        collection_date: Date,
+        host: str,
+        country: str,
+        json_metadata: str,
+        error_text: str,
+        status: SampleStatus = SampleStatus.UNPROCESSED,
+    ):
+        self.accession = accession
+        self.project = project
+        self.instrument_platform = instrument_platform
+        self.read_count = read_count
+        self.fastq_md5 = fastq_md5
+        self.fastq_ftp = fastq_ftp
+        self.collection_date = collection_date
+        self.host = host
+        self.country = country
+        self.json_metadata = json_metadata
+        self.status = status
+        self.error_text = error_text
 
 
 sample_view = Table("sample_view", MetaData())

@@ -63,7 +63,7 @@ The `Makefile` includes the docker setup commands for both x86_64 and M1
 Issue the following command to run the tests.
 
 ```
-pytest
+python3 -m pytest tests/
 ```
 
 This will run the four built-in tests from `ptest-alembic`.
