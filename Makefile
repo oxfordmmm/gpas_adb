@@ -64,11 +64,11 @@ teardown_setup_mac_m1:
 
 test:
 	alembic -x testdb=true upgrade head
-	python -m pytest -vv gpas_adb
+	python -m pytest -vv tests/
 
 format:
 	black --extend-exclude .venv --extend-exclude alembic .
 
 lint:
-	flake8 gpas_adb/*.py gpas_adb/tests/*.py
+	flake8 gpas_adb/*.py tests/*.py
 
