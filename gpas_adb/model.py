@@ -89,7 +89,7 @@ class Sample(Base):
     def __init__(
         self,
         accession: str,
-        project_accession: str,
+        project: Project,
         instrument_platform: str,
         read_count: int,
         fastq_md5: str,
@@ -102,7 +102,7 @@ class Sample(Base):
         status: SampleStatus = SampleStatus.UNPROCESSED,
     ):
         self.accession = accession
-        self.project_acession = project_accession
+        self.project = project
         self.instrument_platform = instrument_platform
         self.read_count = read_count
         self.fastq_md5 = fastq_md5
