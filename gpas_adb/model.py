@@ -60,10 +60,11 @@ class Project(Base):
     accession = Column(String(20), nullable=False, primary_key=True)
     name = Column(String(255))
     samples = relationship("Sample", backref="project")
-    
+
     def __init__(self, accession: str, name: str = None) -> None:
         self.accession = accession
         self.name = name
+
 
 class Sample(Base):
     """
@@ -85,7 +86,7 @@ class Sample(Base):
     json_metadata = Column(Text)
     status = Column(Enum(SampleStatus), server_default="UNPROCESSED")
     error_text = Column(Text)
-    
+
     def __init__(
         self,
         accession: str,
