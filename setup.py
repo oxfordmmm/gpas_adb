@@ -8,7 +8,7 @@ setup(
     license="MIT",
     packages=["gpas_adb"],
     install_requires=[
-        "sqlalchemy",
+        "sqlalchemy<2.0",
         "oracledb",
         "sqlalchemy-jdbcapi",
         "sqlalchemy-views",
