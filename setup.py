@@ -13,7 +13,7 @@ setup(
         "sqlalchemy-jdbcapi",
         "sqlalchemy-views",
         "python-decouple",
-        "alembic","
+        "alembic",
     ],
     zip_safe=False,
 )
